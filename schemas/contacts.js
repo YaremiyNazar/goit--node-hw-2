@@ -1,4 +1,5 @@
 const joi = require("joi");
+
 const contactsSchema = joi.object({
   name: joi.string().required().messages({
     "any.required": "missing required name field",
@@ -10,6 +11,5 @@ const contactsSchema = joi.object({
     "any.required": "missing required phone field",
   }),
 });
-module.exports = {
-  contactsSchema,
-};
+
+module.exports = { contactsSchema };
