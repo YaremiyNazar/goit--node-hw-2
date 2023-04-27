@@ -18,6 +18,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    }
   },
   { versionKey: false }
 );
@@ -33,6 +38,7 @@ const contactsSchema = joi.object({
     "any.required": "missing required phone field",
   }),
   favorite: joi.boolean(),
+
 });
 
 const favoriteSchema = joi.object({
@@ -40,9 +46,11 @@ const favoriteSchema = joi.object({
     "any.required": "favorite must be true or false",
   }),
 });
+
 const schemas = {
   contactsSchema,
   favoriteSchema,
+
 };
 
 contactSchema.post("save", mongooseError);

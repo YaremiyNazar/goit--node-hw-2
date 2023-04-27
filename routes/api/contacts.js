@@ -2,28 +2,28 @@ const express = require("express");
 
 const {schemas} = require("../../models/contact");
 const { validateData, validateDataFavorite } = require("../../utils");
-const {isValidContactId} = require("../../middlewares")
+const {isValidContactId, authenticate} = require("../../middlewares")
 
 const router = express.Router();
 const contactsController = require("../../controllers/contacts-controllers");
 
-router.get("/", contactsController.listContacts);
+router.get("/", authenticate, contactsController.listContacts);
 
-router.get("/:contactId", isValidContactId, contactsController.getContactById);
+router.get("/:contactId", authenticate, isValidContactId, contactsController.getContactById);
 
 router.post(
-  "/",
+  "/", authenticate, 
   validateData(schemas.contactsSchema),
   contactsController.addContact
 );
 
-router.delete("/:contactId", isValidContactId, contactsController.removeContact);
+router.delete("/:contactId", authenticate, isValidContactId, contactsController.removeContact);
 
 router.put(
-  "/:contactId", isValidContactId,
+  "/:contactId", authenticate, isValidContactId,
   validateData(schemas.contactsSchema),
   contactsController.updateContact
 );
-router.patch("/:contactId/favorite",isValidContactId, validateDataFavorite(schemas.favoriteSchema), contactsController.updateStatusContact)
+router.patch("/:contactId/favorite", authenticate, isValidContactId, validateDataFavorite(schemas.favoriteSchema), contactsController.updateStatusContact)
 
 module.exports = router;
