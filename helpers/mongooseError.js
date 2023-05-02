@@ -3,4 +3,4 @@ const mongooseError = (error, data, next) => {
     error.status = (code === 11000 && name === "MongoServerError" ) ? 409 : 400;
     next()
 }
-module.exports = mongooseError 
+module.exports = mongooseError;
