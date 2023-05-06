@@ -27,4 +27,17 @@ const validateDataFavorite = (contactsSchema) => {
   return func;
 };
 
-module.exports = { validateData, validateDataFavorite };
+const validateDataEmail = (userEmailSchema) => {
+  const func = (req, res, next) => {
+    const { error } = userEmailSchema.validate(req.body);
+    if (Object.keys(req.body).length === 0) {
+      next(HttpError(400, "missing required field email"));
+    }
+    if (error) {
+      next(HttpError(400, error.message));
+    }
+    next();
+  };
+  return func;
+}
+module.exports = { validateData, validateDataFavorite, validateDataEmail };
