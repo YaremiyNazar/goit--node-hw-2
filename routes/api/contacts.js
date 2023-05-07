@@ -1,7 +1,7 @@
 const express = require("express");
 
 const { schemas } = require("../../models/contact");
-const { validateData, validateDataFavorite } = require("../../utils");
+const { validateData, validateDataFavorite} = require("../../utils");
 const { isValidContactId, authenticate} = require("../../middlewares");
 
 const router = express.Router();
